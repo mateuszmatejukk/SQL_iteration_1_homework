@@ -1,6 +1,9 @@
 #Zadania 01 - podstawowe pojecia
+
 ## Zadanie 1
+
 'select version();'
+
 ## Zadanie 2
 customers, order_items, orders, products
 ## Zadanie 3
@@ -12,7 +15,7 @@ Jeden wiersz w tabeli course.customers zawiera wszystkie informacje o kliencie, 
 ## Zadanie 6
 Jeden wiersz w tabeli course.orders zawiera wszystkie informacje o zamówieniu, order id, customer id, datę zamówienia, status oraz kwotę zamówienia.
 ## Zadanie 7
-Jeden wiersz w tabeli course.order_items zawiera wszystko to co w tabeli course.orders z wyjątkiem liczebności orderów, w którym liczebność dla rekordu 13 wynosi 5.
+Jeden wiersz w tabeli course.order_items zawiera wszystkie informacje o zamówieniu, order id, product id, liczebność oraz cenę.
 ## Zadanie 8
 customer_id
 ## Zadanie 9 
