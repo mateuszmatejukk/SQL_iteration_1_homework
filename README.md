@@ -1,1 +1,1 @@
-# SQL_iteration_1_homework
+# SQL_homework
