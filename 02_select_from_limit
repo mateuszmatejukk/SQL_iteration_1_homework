@@ -1,0 +1,44 @@
+## Zadania 02 - SELECT, FROM i LIMIT
+
+# Zadanie 1
+'select * from course.customers;'
+
+# Zadanie 2
+'select * from course.products
+limit 0;'
+
+# Zadanie 3
+'select * from course.orders
+limit 0;'
+
+# Zadanie 4
+'select * from course.customers 
+limit 5;'
+
+# Zadanie 5
+'select * from course.products 
+limit 3;'
+
+# Zadanie 6
+'select * from course.order_items
+limit 10;'
+
+# Zadanie 7
+'select * from course.orders
+limit 4;'
+
+# Zadanie 8
+'select * from course.customers 
+limit 2;'
+
+# Zadanie 9
+'select * from course.customers;'
+
+'select * from course.customers
+limit 5;'
+
+Wynik między zapytaniami różni się tym, iż w zapytaniu bez limitu uzyskaliśmy 8 wierszy rekordów, a w zapytaniu z limitem uzyskaliśmy zaledwie 5 wierszy rekordów.
+
+# Zadanie 10
+
+Warto użyć limit przy pierwszym podglądzie dużej tabeli ponieważ jest nam wtedy łatwiej zobaczyć strukturę tabeli i sprawdzić czy zapytanie działa.
