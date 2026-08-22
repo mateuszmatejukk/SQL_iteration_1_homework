@@ -1,4 +1,4 @@
-#Zadania 01 - podstawowe pojecia
+## Zadania 01 - podstawowe pojecia
 
 ## Zadanie 1
 ```sql
