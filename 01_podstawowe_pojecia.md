@@ -1,9 +1,9 @@
 #Zadania 01 - podstawowe pojecia
 
 ## Zadanie 1
-
-'select version();'
-
+```sql
+select version();
+```
 ## Zadanie 2
 customers, order_items, orders, products
 ## Zadanie 3
