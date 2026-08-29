@@ -66,3 +66,44 @@ where o.order_id is null;
 ```
 ## Zadanie 15
 ```sql
+select 
+p.product_id,
+p.product_name,
+p.category
+from course.products p
+left join course.order_items oi
+on p.product_id = oi.product_id
+where order_id is null;
+```
+## Zadanie 16
+```sql
+select distinct
+c.country
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id
+where o.order_id >=1;
+```
+## Zadanie 17
+```sql
+select 
+c.customer_id,	
+c.customer_name,
+count(o.order_id) as orders_count
+from course.customers c
+left join course.orders o
+on c.customer_id = o.customer_id
+group by c.customer_id;
+```
+## Zadanie 18
+```sql
+select
+c.customer_id,
+c.customer_name,
+sum(o.total_amount) as total_revenue
+from course.customers c 
+left join course.orders o
+on c.customer_id = o.customer_id
+group by c.customer_id;
+```
+## Zadanie 19
