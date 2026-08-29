@@ -27,3 +27,42 @@ join course.customers c
 on o.customer_id = c.customer_id
 where status = 'paid';
 ```
+## Zadanie 12
+```sql
+select 
+c.customer_id,
+c.customer_name,
+c.country,
+o.status,
+o.total_amount
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id
+where country = 'PL';
+```
+## Zadanie 13
+```sql
+select
+c.customer_name,
+o.order_id,
+o.order_date,
+o.total_amount
+from course.customers c 
+join course.orders o
+on c.customer_id = o.customer_id 
+order by c.customer_name,
+o.order_date desc;
+```
+## Zadanie 14
+```sql
+select 
+c.customer_id,
+c.customer_name,
+c.country
+from course.customers c
+left join course.orders o
+on c.customer_id = o.customer_id
+where o.order_id is null;
+```
+## Zadanie 15
+```sql
