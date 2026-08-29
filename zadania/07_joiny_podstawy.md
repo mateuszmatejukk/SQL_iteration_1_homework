@@ -142,3 +142,55 @@ group by oi.product_id, p.product_name
 having sum(oi.quantity) > 1;
 ```
 ## Zadanie 22
+```sql
+select
+oi.order_id,
+p.product_name,
+oi.quantity,
+oi.unit_price,
+oi.quantity * oi.unit_price as line_value
+from course.order_items oi
+join course.products p
+on oi.product_id = p.product_id;
+```
+## Zadanie 23
+```sql
+select
+o.order_id,
+c.customer_name,
+o.total_amount,
+case
+	when total_amount >= 150 then 'high'
+	else 'standard'
+end as order_tier
+from course.orders o
+join course.customers c
+on o.customer_id = c.customer_id;
+```
+## Zadanie 24
+```sql
+select
+o.customer_id,
+c.customer_name,
+o.order_id,
+case 
+	when o.order_id is null then 'no order'
+	else o.order_id
+end as order_status
+from course.customers c 
+left join course.orders o
+on o.customer_id = c.customer_id;
+```
+## Zadanie 25
+```sql
+select
+c.country,
+sum(o.total_amount) as total_revenue,
+count(o.order_id) as orders_count
+from course.customers c 
+left join course.orders o
+on c.customer_id = o.customer_id
+group by c.country
+order by total_revenue desc;
+```
+## Zadanie 26
