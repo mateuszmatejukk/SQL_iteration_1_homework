@@ -107,3 +107,38 @@ on c.customer_id = o.customer_id
 group by c.customer_id;
 ```
 ## Zadanie 19
+```sql
+select 
+oi.product_id,
+p.product_name,
+sum(oi.quantity) as units_sold
+from course.products p
+left join course.order_items oi
+on p.product_id = oi.product_id
+group by oi.product_id, p.product_name;
+```
+## Zadanie 20
+```sql
+select 
+c.customer_id,
+c.customer_name,
+count(order_id) as orders_count
+from course.customers c 
+join course.orders o
+on c.customer_id = o.customer_id
+group by c.customer_id, c.customer_name
+having count(order_id) > 1;
+```
+## Zadanie 21
+```sql
+select 
+oi.product_id,
+p.product_name,
+sum(oi.quantity) as units_sold
+from course.products p
+join course.order_items oi
+on p.product_id = oi.product_id
+group by oi.product_id, p.product_name 
+having sum(oi.quantity) > 1;
+```
+## Zadanie 22
