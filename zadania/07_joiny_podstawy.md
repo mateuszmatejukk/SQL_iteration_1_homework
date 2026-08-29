@@ -1,3 +1,85 @@
+## Zadanie 1
+```sql
+select 
+o.order_id,
+o.order_date,
+o.total_amount,
+c.customer_name,
+c.country
+from course.orders o
+join course.customers c
+on c.customer_id = o.customer_id;
+```
+## Zadanie 2
+```sql
+select
+oi.order_item_id,
+oi.order_id,
+p.product_name,
+p.category,
+oi.quantity,
+oi.unit_price
+from course.order_items oi
+join course.products p
+on oi.product_id = p.product_id;
+```
+## Zadanie 3
+```sql
+select 
+c.customer_id,
+c.customer_name,
+o.order_id,
+o.total_amount
+from course.customers c
+inner join course.orders o
+on c.customer_id = o.customer_id;
+```
+## Zadanie 4
+```sql
+select
+c.customer_id,
+c.customer_name,
+o.order_id,
+o.total_amount
+from course.customers c
+left join course.orders o
+on c.customer_id = o.customer_id;
+```
+## Zadanie 5
+```sql
+Left join może zwrócić więcej wierszy niż inner join, ponieważ zachowuje wszystkie rekordy, nawet null, natomiast inner join pokazuje rekordy tylko z istniejącymi wartościami.
+```
+## Zadanie 6
+```sql
+select
+c.customer_id,
+c.customer_name,
+o.order_id,
+o.total_amount
+from course.customers c
+right join course.orders o
+on c.customer_id = o.customer_id;
+```
+## Zadanie 7
+```sql
+select 
+c.customer_id,
+c.customer_name,
+o.order_id,
+o.total_amount
+from course.customers c
+full outer join course.orders o
+on c.customer_id = o.customer_id;
+```
+## Zadanie 8
+```sql
+select 
+c.customer_name,
+p.product_name
+from course.customers c
+cross join course.products p;
+```
+```
 ## Zadanie 10
 ```sql
 select
@@ -193,4 +275,3 @@ on c.customer_id = o.customer_id
 group by c.country
 order by total_revenue desc;
 ```
-## Zadanie 26
