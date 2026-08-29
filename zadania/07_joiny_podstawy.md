@@ -79,7 +79,6 @@ p.product_name
 from course.customers c
 cross join course.products p;
 ```
-```
 ## Zadanie 10
 ```sql
 select
