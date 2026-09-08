@@ -57,6 +57,7 @@ join course.orders o
 on c.customer_id = o.customer_id
 group by o.customer_id, c.customer_name
 having sum(o.total_amount) > 300
-```
+
 
 order by alert_type;
+'''
