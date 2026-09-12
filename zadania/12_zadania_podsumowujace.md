@@ -44,16 +44,20 @@ order by gross_revenue desc;
 ## Zadanie 3
 ```sql
 select
-date_trunc('month',o.order_date) as sales_month,
+DATE_TRUNC('month', o.order_date) AS sales_month,
 c.country,
-sum(o.order_id) as orders_count,
-count(distinct(o.customer_id) as customers_count,
-count(o.order_id) where status is 'paid',
-count(o.order_id) where status is 'cancelled',
-round(avg(o.total_amount),2) as average_order_value,
-from course.orders o  
-join course.customers c 
-on c.customer_id = o.customer_id;
+count(o.order_id) as orders_count,
+count(distinct(c.customer_id)) as customers_count,
+SUM(CASE WHEN o.status = 'paid' THEN 1 ELSE 0 END) AS paid_orders_count,
+    SUM(CASE WHEN o.status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled_orders_count,
+sum(o.total_amount) as total_revenue,
+round(avg(o.total_amount),2) as average_order_value
+from course.customers c
+left join course.orders o
+on c.customer_id = o.customer_id
+group by c.country, sales_month
+having sum(o.total_amount) > 100
+order by sales_month, total_revenue desc;
 ```
 ## Zadanie 4
 ```sql
