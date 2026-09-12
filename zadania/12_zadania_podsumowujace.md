@@ -4,21 +4,20 @@ select
 c.customer_id,
 c.customer_name,
 c.country,
-c.acquisition_channel
-from course.customers c
-left join course.orders o
-on c.customer_id = o.customer_id 	
-count(order_id) as paid_orders_count
-where o.status is 'paid',
-count(o.order_id) as cancelled_orders_count
-where o.status is 'cancelled',
+c.acquisition_channel,
+sum(o.order_id) as orders_count,
+SUM(CASE WHEN o.status = 'paid' THEN 1 ELSE 0 END) AS paid_orders_count,
+    SUM(CASE WHEN o.status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled_orders_count,
 sum(o.total_amount) as total_revenue,
-avg(o.total_amount) as average_order_value,
-case
-	when order_id is null then 'no_orders'
+round(avg(o.total_amount),2),
+case 
+	when o.order_id is null then 'no_orders'
 	else 'buyer'
-end
-group by c.customer_id, c.customer_name, c.country, c.acquisition_channel
+end as customer_status
+from course.customers c
+left join course.orders o 
+on c.customer_id = o.customer_id
+group by c.customer_id, o.order_id
 order by total_revenue desc;
 ```
 ## Zadanie 2
