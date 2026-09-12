@@ -43,5 +43,19 @@ order by gross_revenue desc;
 ```
 ## Zadanie 3
 ```sql
+select
+date_trunc('month',o.order_date) as sales_month,
+c.country,
+sum(o.order_id) as orders_count,
+count(distinct(o.customer_id) as customers_count,
+count(o.order_id) where status is 'paid',
+count(o.order_id) where status is 'cancelled',
+round(avg(o.total_amount),2) as average_order_value,
+from course.orders o  
+join course.customers c 
+on c.customer_id = o.customer_id;
+```
+## Zadanie 4
+```sql
 
 ```
