@@ -28,16 +28,17 @@ p.product_name,
 p.category,
 p.base_price,
 sum(oi.quantity) as units_sold,
+count(oi.order_id) as orders_count,
 sum(oi.quantity * oi.unit_price) as gross_revenue,
 round(avg(oi.unit_price),2) as average_unit_price,
 case 
-	when order_item_id is null then 'not_sold'
+	when oi.order_id is null then 'not_sold'
 	else 'sold'
 end as sale_status
 from course.products p
 left join course.order_items oi
-on oi.product_id = p.product_id
-group by p.product_id, p.product_name, p.category, p.base_price, oi.order_item_id
+on p.product_id = oi.product_id 
+group by p.product_id, oi.order_id
 order by gross_revenue desc;
 ```
 ## Zadanie 3
