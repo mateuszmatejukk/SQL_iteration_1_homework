@@ -112,3 +112,7 @@ where c.email is null
 order by issue_type, object_id;
 --nie wiedziałem co dać jako object id w product without sale wiec dalem ten status zeby nie wywalalo mi bledu i ten raport sie pokazal
 ```
+## Zadanie 6
+```sql
+
+```
