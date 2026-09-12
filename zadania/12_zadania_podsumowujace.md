@@ -86,10 +86,29 @@ p.product_name as object_name,
 from course.products p
 left join course.order_items oi
 on p.product_id = oi.product_id
-where oi.order_id is null
+where oi.product_id is null
 
-/zamowienia bez pozycji zamowienia
+union all 
+
+select
+'orders without order items' as issue_type,
+o.order_id as object_id,
+o.status as object_name,
+'Order has no order items' as details
+from course.orders o
+left join course.order_items oi 
+on o.order_id = oi.order_id 
+where oi.order_item_id is null
+
+union all
 
 select 
-'customer_without_email' as
+'customer_without_email' as issue_type,
+c.customer_id as object_id,
+c.customer_name as object_name,
+'Customer has no email' as details
+from course.customers c
+where c.email is null
+order by issue_type, object_id;
+--nie wiedziałem co dać jako object id w product without sale wiec dalem ten status zeby nie wywalalo mi bledu i ten raport sie pokazal
 ```
