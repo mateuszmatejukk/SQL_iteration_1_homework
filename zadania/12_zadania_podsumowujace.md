@@ -137,3 +137,19 @@ group by oi.order_id) items
 on items.order_id = o.order_id
 order by (CASE WHEN o.total_amount - items.items_total_amount  = 0 THEN 1 ELSE 0 END);
 ```
+## Zadanie 7
+```sql
+select 
+c.acquisition_channel,
+count(c.customer_id) as customers_count,
+count(o.customer_id) as customers_with_orders_count,
+count(o.order_id) as orders_count,
+count(CASE WHEN o.status = 'paid' THEN 1 ELSE 0 END) AS paid_orders_count,
+sum(o.total_amount) as total_revenue,
+sum(o.total_amount) / count(c.customer_id) as average_revenue_per_customer
+from course.customers c 
+left join course.orders o
+on o.customer_id = c.customer_id
+group by c.acquisition_channel
+order by total_revenue desc;
+```
