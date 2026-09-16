@@ -153,3 +153,45 @@ on o.customer_id = c.customer_id
 group by c.acquisition_channel
 order by total_revenue desc;
 ```
+## Zadanie 8
+```sql
+select 
+oi.product_id, 
+p.product_name, 
+p.category,
+c.country,
+sum(oi.quantity) as units_sold,
+sum(oi.quantity * unit_price) as total_revenue
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id
+join course.order_items oi
+on o.order_id = oi.order_id
+join course.products p
+on p.product_id = oi.product_id 
+where c.country = 'PL' or c.country = 'DE'
+group by oi.product_id, p.product_name, p.category, c.country
+having sum(oi.quantity) > 1
+order by units_sold desc, total_revenue desc
+## Zadanie 9
+```sql
+select 
+c.customer_id, 
+c.customer_name,
+c.country
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id 
+join course.order_items oi
+on o.order_id = oi.order_id 
+join course.products p
+case 
+	when c.customer_id 
+end
+
+
+```
+## Zadanie 10
+```sql
+
+```
