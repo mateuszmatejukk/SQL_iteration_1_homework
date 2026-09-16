@@ -203,5 +203,28 @@ order by customer_id;
 ```
 ## Zadanie 10
 ```sql
-
+select
+o.order_id,
+o.order_date,
+date_trunc('month', o.order_date) as sales_month,
+c.customer_id,
+c.customer_name,
+c.country,
+o.status,
+count (oi.order_item_id) as items_count,
+sum(oi.quantity) as units_count,
+o.total_amount as order_total_amount,
+sum(oi.quantity * oi.unit_price) as items_total_amount,
+case 
+	when o.total_amount >= 150 then 'high'
+	else 'standard'
+end as order_tier
+from course.orders o
+join course.customers c
+on c.customer_id = o.customer_id 
+join course.order_items oi
+on o.order_id = oi.order_id 
+where order_date >= '2026-05-10' and (o.status = 'pending' or o.status = 'paid') 
+group by o.order_id, o.order_date, c.customer_id, c.customer_name, c.country, o.status
+order by order_date, order_id;
 ```
