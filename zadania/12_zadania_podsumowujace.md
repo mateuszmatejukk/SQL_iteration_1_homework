@@ -173,22 +173,32 @@ where c.country = 'PL' or c.country = 'DE'
 group by oi.product_id, p.product_name, p.category, c.country
 having sum(oi.quantity) > 1
 order by units_sold desc, total_revenue desc
+```
 ## Zadanie 9
 ```sql
-select 
-c.customer_id, 
+select
+c.customer_id,
 c.customer_name,
 c.country
 from course.customers c
-join course.orders o
-on c.customer_id = o.customer_id 
+where exists(
+select 1
+from course.orders o
 join course.order_items oi
 on o.order_id = oi.order_id 
 join course.products p
-case 
-	when c.customer_id 
-end
-
+on oi.product_id = p.product_id 
+where c.customer_id = o.customer_id and p.category = 'course'
+)
+and not exists(
+select 1
+from course.orders o
+join course.order_items oi
+on o.order_id = oi.order_id
+join course.products p
+on oi.product_id = p.product_id
+where c.customer_id = o.customer_id and p.category = 'template')
+order by customer_id;
 
 ```
 ## Zadanie 10
