@@ -163,3 +163,16 @@ where exists (
   where o.customer_id = c.customer_id and o.status = 'cancelled')
 order by c.customer_id
 ```
+## Zadanie 15
+```sql
+select
+p.product_id,
+p.product_name
+from course.products p
+where not exists(
+select 1
+from course.order_items oi
+where p.product_id = oi.product_id
+)
+order by p.product_id;
+```
