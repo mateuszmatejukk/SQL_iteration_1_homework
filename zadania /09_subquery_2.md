@@ -149,5 +149,17 @@ order by customer_id;
 ```
 ## Zadanie 14
 ```sql
-
+select
+c.customer_id,
+c.customer_name
+from course.customers c
+where exists (
+    select 1
+    from course.orders o
+    where o.customer_id = c.customer_id) and
+   not exists(
+  select 1 
+  from course.orders o
+  where o.customer_id = c.customer_id and o.status = 'cancelled')
+order by c.customer_id
 ```
