@@ -107,5 +107,31 @@ where o.customer_id = c.customer_id
 ```
 ## Zadanie 10
 ```sql
+select
+status,
+sum(total_amount) as total_revenue
+from course.orders 
+group by status
+having sum(total_amount) >
+(select 
+avg(total_amount)
+from course.orders
+);
+```
+## Zadanie 11
+```sql
+select
+order_id,
+customer_id,
+total_amount
+from course.orders
+where total_amount in (
+select max(total_amount)
+from course.orders
+)
+order by order_id;
+```
+## Zadanie 12
+```sql
 
 ```
