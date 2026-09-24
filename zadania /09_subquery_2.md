@@ -144,7 +144,10 @@ from course.customers c
 where exists (
 select 1
 from course.orders o
-where o.customer_id = c.customer_id and status = 'paid'
-);
+where o.customer_id = c.customer_id and status = 'paid')
+order by customer_id;
 ```
 ## Zadanie 14
+```sql
+
+```
