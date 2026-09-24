@@ -135,3 +135,16 @@ order by order_id;
 ```sql
 
 ```
+## Zadanie 13
+```sql
+select
+c.customer_id,
+c.customer_name
+from course.customers c 
+where exists (
+select 1
+from course.orders o
+where o.customer_id = c.customer_id and status = 'paid'
+);
+```
+## Zadanie 14
