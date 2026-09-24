@@ -133,7 +133,15 @@ order by order_id;
 ```
 ## Zadanie 12
 ```sql
-
+select
+product_id,
+product_name,
+category
+from course.products p
+where exists(
+select 1 
+from course.products p
+);
 ```
 ## Zadanie 13
 ```sql
