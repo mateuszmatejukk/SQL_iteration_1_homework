@@ -1,0 +1,19 @@
+## Zadanie 12
+```sql
+select
+p.product_id,
+p.product_name,
+p.category,
+p.base_price,
+(select 
+avg(base_price)
+from course.products p2 
+where p.category = p2.category) as category_avg_price
+from course.products p
+where p.base_price > (
+select 
+avg(base_price)
+from course.products p2 
+where p.category = p2.category)
+order by p.category, p.base_price desc;
+```
