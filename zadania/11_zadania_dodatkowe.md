@@ -145,5 +145,11 @@ having count(o.order_id) > 1;
 ```
 ## Zadanie 14
 ```sql
-
+select
+order_date,
+count(order_id) as orders_count,
+sum(total_amount) as total_revenue
+from course.orders 
+group by order_date
+order by order_date;
 ```
