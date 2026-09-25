@@ -118,7 +118,11 @@ order by c.customer_id;
 ```
 ## Zadanie 15
 ```sql
-
+select
+order_id,
+order_date,
+extract(quarter from order_date) as order_quarter
+from course.orders;
 ```
 ## Zadanie 16
 ```sql
