@@ -53,7 +53,11 @@ order by sales_month;
 ```
 ## Zadanie 7
 ```sql
-
+select
+date_trunc('month',signup_date) as signup_month,
+count(customer_id) as customers_count
+from course.customers
+group by signup_month;
 ```
 ## Zadanie 8
 ```sql
@@ -100,7 +104,17 @@ order by order_id;
 ```
 ## Zadanie 14
 ```sql
-
+select distinct on (c.customer_id)
+c.customer_id,
+c.customer_name,
+c.signup_date,
+o.order_date as first_order_date,
+(o.order_date - c.signup_date) as days_to_first_order
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id
+group by c.customer_id, o.order_date
+order by c.customer_id;
 ```
 ## Zadanie 15
 ```sql
