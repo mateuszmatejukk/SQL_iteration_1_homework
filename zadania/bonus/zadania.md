@@ -114,5 +114,36 @@ union all
 ```
 ## Zadanie 5
 ```sql
-
+with difference_checker as(
+	select
+	o.order_id,
+	c.customer_name,
+	o.status,
+	o.total_amount as order_total_amount,
+	sum(oi.quantity * oi.unit_price) as items_total_amount
+	from course.orders o 
+	left join course.order_items oi
+	on o.order_id = oi.order_id 
+	left join course.customers c
+	on c.customer_id = o.customer_id 
+	group by o.order_id, c.customer_name, o.status, o.total_amount
+	),
+amount_check as(
+select difference_checker *
+(order_total_amount - items_total_amount) as difference_amount,
+case 
+	when (order_total_amount - items_total_amount)  is null then 'missing items'
+	when (order_total_amount - items_total_amount)  = 0 then 'match'
+	when (order_total_amount - items_total_amount) <> 0 then 'different'
+	end as amount_check
+from difference_checker)
+select 
+order_id,
+customer_name,
+status,
+order_total_amount,
+items_total_amount
+from amount_check
+where amount_check <> 'match'
+order by amount_check, order_id;
 ```
