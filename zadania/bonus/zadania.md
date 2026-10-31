@@ -147,3 +147,47 @@ from amount_check
 where amount_check <> 'match'
 order by amount_check, order_id;
 ```
+## Zadanie 6
+```sql
+with country_per_category as(
+	select
+	c.country,
+	count(distinct c.customer_id) as customers_count,
+	count(o.order_id) as orders_count,
+	count(distinct p.category) as categories_count,
+	sum(oi.quantity * oi.unit_price) as total_revenue
+	from course.customers c 
+	join course.orders o 
+	on c.customer_id = o.customer_id 
+	join course.order_items oi
+	on o.order_id = oi.order_id 
+	join course.products p
+	on p.product_id = oi.product_id
+	group by c.country
+	)
+select * 
+from country_per_category 
+where categories_count >= 2 and total_revenue > 100
+order by categories_count desc, total_revenue desc;
+```
+## Zadanie 7
+```sql
+with less_valuable_customers as(
+	select
+	c.customer_id,
+	c.customer_name,
+	c.country,
+	sum(o.total_amount) as total_revenue,
+	count(o.order_id) as orders_count
+	from course.customers c
+	join course.orders o
+	on c.customer_id = o.customer_id
+	where exists(
+	select 1
+	from course.products p
+	where p.category = 'course')
+	group by c.customer_id, c.customer_name, c.country
+	)
+select * from less_valuable_customers;
+```
+
