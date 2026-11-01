@@ -190,4 +190,59 @@ with less_valuable_customers as(
 	)
 select * from less_valuable_customers;
 ```
-
+## Zadanie 8
+```sql
+with product_per_acquisition_channel as(
+select
+p.product_id,
+p.product_name,
+c.acquisition_channel,
+count(distinct c.customer_id) as customers_count,
+count(o.order_id) as orders_count,
+sum(oi.quantity) as units_sold,
+sum(oi.quantity * unit_price) as total_revenue
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id 
+join course.order_items oi
+on o.order_id = oi.order_id 
+join course.products p
+on p.product_id = oi.product_id
+group by p.product_id, p.product_name,c.acquisition_channel)
+select * 
+from product_per_acquisition_channel
+where units_sold > 1
+order by product_name, total_revenue desc;
+```
+## Zadanie 9
+```sql
+with customer_statistics  as(
+select
+c.customer_id,
+c.customer_name,
+c.country,
+count(o.order_id) as orders_count,
+sum(case when o.status = 'paid' then 1 else 0 end) as paid_orders_count,
+sum(case when o.status = 'cancelled' then 1 else 0 end) as cancelled_orders_count,
+sum(o.total_amount) as total_revenue
+from course.customers c
+left join course.orders o
+on c.customer_id = o.customer_id
+group by c.customer_id, c.customer_name, c.country)
+select 
+customer_id,
+customer_name,
+country,
+orders_count,
+paid_orders_countC,
+cancelled_orders_count,
+total_revenue,
+case 
+	when orders_count = 0 then 'no_orders'
+	when cancelled_orders_count > paid_orders_count then 'cancel_risk'
+	when total_revenue > (select avg(total_revenue) from customer_statistics) then 'high_value;'
+	else 'standard'
+end as customer_label
+from customer_statistics 
+order by customer_label, total_revenue desc;
+```
