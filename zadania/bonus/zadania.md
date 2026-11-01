@@ -246,3 +246,38 @@ end as customer_label
 from customer_statistics 
 order by customer_label, total_revenue desc;
 ```
+## Zadanie 10
+```sql
+with base_report as(
+select
+date_trunc('month', o.order_date) as sales_month,
+c.country,
+p.category,
+count(distinct c.customer_id) as customers_count,
+count(distinct o.order_id) as orders_count,
+count(distinct p.product_id) as products_count,
+sum(oi.quantity) as units_sold,
+sum(oi.quantity * oi.unit_price) as total_revenue,
+round(avg(oi.quantity * oi.unit_price),2) as average_line_value
+from course.customers c
+join course.orders o
+on c.customer_id = o.customer_id 
+join course.order_items oi
+on o.order_id = oi.order_id 
+join course.products p
+on p.product_id = oi.product_id
+group by date_trunc('month',o.order_date), c.country, p.category)
+select 
+sales_month,
+country,
+category,
+customers_count,
+orders_count,
+products_count,
+units_sold,
+total_revenue,
+average_line_value
+from base_report
+where total_revenue > (select avg(total_revenue) from base_report) 
+order by sales_month, country, total_revenue desc;
+```
